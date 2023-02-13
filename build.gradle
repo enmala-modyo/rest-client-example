@@ -9,7 +9,7 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "modyo_rest-client-example"
+        property "sonar.projectKey", "enmala_modyo-rest-client-example"
         property "sonar.organization", "enmala"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.exclusions", "**/**Application*,**/*Config*,**/*MapperImpl*"
