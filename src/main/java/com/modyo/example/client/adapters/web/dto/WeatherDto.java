@@ -6,8 +6,11 @@ import lombok.Data;
 
 @Data
 @Builder
-public class GreetingDto extends Dto {
+public class WeatherDto extends Dto {
 
-  private String message;
+  private String cityName;
+  private String temperature;
+  private String time;
+  private String condition;
 
 }

@@ -1,1 +1,6 @@
 datasources:
+  rest:
+    webServices:
+      weather:
+        base-url: https://api.weatherapi.com/v1
+        api-key: ${WEATHERAPI_KEY:}

@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "status": "200",
+      "code": "1015",
+      "title": "Critical Business error",
+      "messageCode": "1001",
+      "detail": "Unable to get current weather for No City"
+    }
+  ]
+}
