@@ -12,14 +12,26 @@ import feign.Response;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.Assertions;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @ExtendWith(LogCaptureExtension.class)
 class CustomFeignLoggerTest {
 
   private final CustomFeignLogger feignLogger = new CustomFeignLogger();
+
+  @BeforeEach
+  void setUp() {
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setAttribute("requestId", "");
+    request.setAttribute("correlationId", "");
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+  }
 
   @Test
   void logRequest(LogCapture logCapture) {

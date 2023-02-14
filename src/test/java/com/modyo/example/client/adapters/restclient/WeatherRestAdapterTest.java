@@ -16,6 +16,9 @@ import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 class WeatherRestAdapterTest {
@@ -28,6 +31,11 @@ class WeatherRestAdapterTest {
 
   @BeforeEach
   void setUp() {
+    MockHttpServletRequest request = new MockHttpServletRequest();
+    request.setAttribute("requestId", "");
+    request.setAttribute("correlationId", "");
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
     weatherCondition.setCondition("Sunny");
     weatherCondition.setTemperature("30.1");
     given(mapper.toEntity(any())).willReturn(weatherCondition);
