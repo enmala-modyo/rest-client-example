@@ -13,3 +13,10 @@ datasources:
       weather:
         base-url: http://localhost:1080
         api-key: fakeapikey
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+

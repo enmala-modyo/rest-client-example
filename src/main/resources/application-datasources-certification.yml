@@ -4,3 +4,12 @@ datasources:
       weather:
         base-url: https://api.weatherapi.com/v1
         api-key: ${WEATHERAPI_KEY:}
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+

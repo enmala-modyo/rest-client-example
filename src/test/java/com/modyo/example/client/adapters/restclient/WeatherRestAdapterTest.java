@@ -31,7 +31,7 @@ class WeatherRestAdapterTest {
     weatherCondition.setCondition("Sunny");
     weatherCondition.setTemperature("30.1");
     given(mapper.toEntity(any())).willReturn(weatherCondition);
-    given(restClient.getCurrentWeather(anyString(), any())).willReturn(ResponseEntity.ok().build());
+    given(restClient.getCurrentWeather(anyString())).willReturn(ResponseEntity.ok().build());
   }
 
   @Test
@@ -45,7 +45,7 @@ class WeatherRestAdapterTest {
   void testLoadCurrentDoesNotReturnData() {
     Request fakeRequest = Request.create(Request.HttpMethod.GET, "url",
         new HashMap<>(), null, new RequestTemplate());
-    given(restClient.getCurrentWeather(anyString(), any())).willThrow(
+    given(restClient.getCurrentWeather(anyString())).willThrow(
         new FeignException.NotFound("Not Found", fakeRequest, null, null));
     assertThrows(CriticalBusinessErrorException.class, () -> restAdapter.loadCurrent("any"));
   }
