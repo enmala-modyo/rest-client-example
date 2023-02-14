@@ -11,7 +11,7 @@ en la variable de ambiente `WEATHERAPI_KEY`
 
 ### Test de Integración
 Para la implementación de los test de integración se ha utilizado
-SpringBootTest para configurar el contexto de la aplicación, la base de datos en memoria H2
+SpringBootTest para configurar el contexto de la aplicación
 y se ha simulado la conexión con Weather API utilizando [MockServer](https://www.mock-server.com/).
 
 
