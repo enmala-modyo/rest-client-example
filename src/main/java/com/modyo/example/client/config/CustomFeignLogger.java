@@ -1,5 +1,7 @@
 package com.modyo.example.client.config;
 
+import com.modyo.ms.commons.audit.aspect.context.AuditGetContext;
+import com.modyo.ms.commons.audit.aspect.context.AuditSetContext;
 import feign.Logger;
 import feign.Request;
 import feign.Response;
@@ -9,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CustomFeignLogger extends Logger {
+  private static final String AUDIT_PREFIX = "rest_service";
 
   @Override
   protected void logRequest(String configKey, Level logLevel, Request request) {
@@ -34,8 +37,11 @@ public class CustomFeignLogger extends Logger {
       bodyText = new String(Util.toByteArray(response.body().asInputStream()), response.charset());
       bodyBytes = bodyText.getBytes(response.charset());
     }
-    log.info("<--- {} {} HTTP/1.1 {} ({}) ", request.httpMethod().name(), request.url(), status, elapsedTime);
+    var requestString = String.format("%s %s HTTP/1.1 %s (%s) ", request.httpMethod().name(), request.url(), status, elapsedTime);
+    log.info("<--- {}", requestString);
     log.info("Response body: {}", bodyText);
+    AuditSetContext.setInitialEntityInfo(AUDIT_PREFIX, requestString, AuditGetContext.getParentEntityId());
+    AuditSetContext.setNewValue(AUDIT_PREFIX, bodyText);
     log(configKey, "<--- %s %s HTTP/1.1 %s (%sms) ", request.httpMethod().name(), request.url(), status, elapsedTime);
     return Response.builder().status(response.status()).reason(response.reason())
         .headers(response.headers()).body(bodyBytes).request(request).build();
