@@ -81,7 +81,7 @@ jobs:
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar       
+          restore-keys: ${{ runner.os }}-sonar
       # Generate Bill of Materials (BOM) file with dependencies
       - name: generate dependencies BOM
         uses: gradle/gradle-build-action@v2
@@ -102,7 +102,7 @@ jobs:
           template: '@/github/workspace/sonar.tpl'
           security-checks: 'vuln'
           exit-code: '0'
-          ignore-unfixed: false   
+          ignore-unfixed: false
       - name: Build and test
         uses: gradle/gradle-build-action@v2
         env:
@@ -112,4 +112,9 @@ jobs:
         with:
           gradle-version: 6.9
           arguments: build jacocoTestReport sonar --info
+      - name: Integration test
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 6.9
+          arguments: testIntegration --info
 
