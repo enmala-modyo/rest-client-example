@@ -15,7 +15,6 @@ import java.io.InputStream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockserver.client.MockServerClient;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.matchers.Times;
 import org.mockserver.model.MediaType;
@@ -75,7 +74,7 @@ public class WeatherIntegrationTest {
   private void createExpectationForGetCurrentWeatherCondition() throws IOException {
     InputStream is = this.getClass().getResourceAsStream("/responses/currentWeather.json");
     String responseBody = new String(is.readAllBytes());
-    new MockServerClient("127.0.0.1", 1080)
+    mockServer
         .when(
             request()
                 .withMethod("GET")
@@ -91,7 +90,7 @@ public class WeatherIntegrationTest {
   private void createExpectationForNoLocationFound() throws IOException {
     InputStream is = this.getClass().getResourceAsStream("/responses/noLocationFound.json");
     String responseBody = new String(is.readAllBytes());
-    new MockServerClient("127.0.0.1", 1080)
+    mockServer
         .when(
             request()
                 .withMethod("GET")
