@@ -98,6 +98,8 @@ dependencies {
 
     // MySQL
     implementation 'com.mysql:mysql-connector-j:8.0.32'
+    // H2
+    runtimeOnly 'com.h2database:h2'
 
     // Security Updates
     implementation 'org.yaml:snakeyaml:1.33'
