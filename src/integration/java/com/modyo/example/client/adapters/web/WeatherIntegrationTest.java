@@ -23,7 +23,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+    "datasources.rest.webServices.weather.base-url=http://localhost:1080",
+    "datasources.rest.webServices.weather.api-key=fakekey"
+})
+
 @AutoConfigureMockMvc
 public class WeatherIntegrationTest {
 
