@@ -90,6 +90,7 @@ jobs:
         env:
           GITHUB_USERNAME: ${{ secrets.CI_GITHUB_USER }}
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME_11_X64 }}
         with:
           gradle-version: 6.9
           arguments: cyclonedxBom
@@ -111,11 +112,14 @@ jobs:
           GITHUB_USERNAME: ${{ secrets.CI_GITHUB_USER }}
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME_17_X64 }}
         with:
           gradle-version: 6.9
           arguments: build jacocoTestReport sonar --info
       - name: Integration test
         uses: gradle/gradle-build-action@v2
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_11_X64 }}
         with:
           gradle-version: 6.9
           arguments: testIntegration --info
